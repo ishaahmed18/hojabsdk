@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SARU KA BARDAY</title>
+  <!-- Google Font & inline everything -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #e8dff5;
+      font-family: 'Quicksand', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+    .main-card {
+      max-width: 1100px;
+      width: 100%;
+      background: rgba(230, 215, 245, 0.6);
+      backdrop-filter: blur(2px);
+      border-radius: 60px 60px 40px 40px;
+      padding: 2rem 1.8rem 3rem;
+      box-shadow: 0 20px 40px rgba(160, 120, 200, 0.2), 0 8px 20px rgba(180, 150, 210, 0.15);
+      border: 1px solid rgba(200, 180, 230, 0.5);
+      transition: all 0.2s;
+    }
+    /* sections */
+    .page {
+      display: none;
+      animation: fadeGlow 0.5s ease;
+    }
+    .page.active {
+      display: block;
+    }
+    @keyframes fadeGlow {
+      0% { opacity: 0.3; transform: scale(0.97); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    /* ----- WELCOME (page 1) ----- */
+    .welcome-wrap {
+      text-align: center;
+      padding: 1.2rem 0.5rem 0.8rem;
+    }
+    .welcome-wrap h1 {
+      font-size: 4.2rem;
+      font-weight: 700;
+      color: #6b4c8a;
+      letter-spacing: 2px;
+      text-shadow: 4px 4px 0 #dcc8f0, 0 10px 20px rgba(160, 120, 200, 0.2);
+      margin-bottom: 0.4rem;
+    }
+    .welcome-wrap .sub {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #7a5a9a;
+      background: rgba(215, 195, 235, 0.5);
+      display: inline-block;
+      padding: 0.3rem 2.2rem;
+      border-radius: 60px;
+      backdrop-filter: blur(4px);
+      margin-bottom: 1.8rem;
+    }
+    .welcome-wrap .girly-icon {
+      font-size: 4rem;
+      letter-spacing: 10px;
+      margin: 0.5rem 0;
+    }
+    .btn {
+      background: #d4b8e8;
+      border: none;
+      padding: 0.9rem 2.8rem;
+      border-radius: 80px;
+      font-weight: 600;
+      font-size: 1.4rem;
+      color: #4a2d66;
+      box-shadow: 0 6px 0 #b294cc, 0 12px 20px rgba(160, 120, 200, 0.25);
+      cursor: pointer;
+      transition: 0.08s linear;
+      margin-top: 0.8rem;
+      font-family: 'Quicksand', sans-serif;
+      letter-spacing: 1px;
+    }
+    .btn:active {
+      transform: translateY(5px);
+      box-shadow: 0 1px 0 #b294cc;
+    }
+    /* ----- BIRTHDAY POPPER (page2) ----- */
+    .bday-pop {
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .bday-pop h2 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #6b4c8a;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #dcc8f0, #e8dff5);
+      display: inline-block;
+      padding: 0.2rem 3rem;
+      border-radius: 120px;
+      box-shadow: 0 6px 0 #b294cc;
+    }
+    .balloon-area {
+      min-height: 170px;
+      margin: 1.5rem 0 1rem;
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem 0.8rem;
+    }
+    .balloon {
+      display: inline-block;
+      font-size: 3.8rem;
+      filter: drop-shadow(0 10px 12px rgba(160, 120, 200, 0.3));
+      transition: all 0.2s;
+      animation: floatPop 3s infinite alternate ease-in-out;
+    }
+    .balloon:nth-child(odd) { animation-delay: 0.2s; }
+    .balloon:nth-child(3n) { animation-delay: 1s; }
+    .balloon:nth-child(5n) { animation-delay: 0.7s; }
+    @keyframes floatPop {
+      0% { transform: translateY(0px) scale(0.9); }
+      100% { transform: translateY(-25px) scale(1.1); }
+    }
+    .confetti-emoji {
+      font-size: 2.4rem;
+      margin: 0 0.2rem;
+      display: inline-block;
+      animation: twinkle 1.2s infinite alternate;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.4; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+    .bday-pop .btn {
+      background: #d4b8e8;
+      margin: 0.2rem 0.5rem;
+    }
+    /* ----- GALLERY POLAROID (page3) ----- */
+    .polaroid-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1.8rem 1.2rem;
+      margin: 2rem 0 1.2rem;
+      justify-items: center;
+    }
+    .polaroid {
+      background: #f3ecf9;
+      padding: 0.8rem 0.8rem 1.4rem;
+      border-radius: 26px 26px 18px 18px;
+      box-shadow: 0 12px 24px rgba(160, 120, 200, 0.15), 0 4px 8px rgba(180, 150, 210, 0.3);
+      transition: 0.3s ease;
+      width: 100%;
+      max-width: 190px;
+      cursor: pointer;
+      border: 1px solid #e4d5f0;
+      backdrop-filter: blur(2px);
+      text-align: center;
+      position: relative;
+    }
+    .polaroid img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 18px;
+      background: #dcc8f0;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+      transition: 0.3s ease;
+    }
+    .polaroid .caption {
+      font-weight: 600;
+      color: #5a3d7a;
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+    }
+    /* clicked polaroid (blur bg + bigger) */
+    .polaroid.expanded {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.3);
+      z-index: 999;
+      max-width: 450px;
+      width: 85%;
+      padding: 1.4rem 1.4rem 2rem;
+      background: #f3ecf9;
+      box-shadow: 0 40px 70px rgba(100, 60, 140, 0.5);
+      border-radius: 40px;
+      cursor: default;
+      pointer-events: auto;
+      border: 2px solid #d4b8e8;
+    }
+    .polaroid.expanded img {
+      aspect-ratio: 1/1;
+      border-radius: 24px;
+      width: 100%;
+      height: auto;
+    }
+    .polaroid.expanded .caption {
+      font-size: 1.3rem;
+      margin-top: 0.8rem;
+      color: #4a2d66;
+    }
+    .blur-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      backdrop-filter: blur(10px);
+      background: rgba(180, 150, 210, 0.25);
+      z-index: 998;
+      pointer-events: auto;
+    }
+    .blur-overlay.show {
+      display: block;
+    }
+    /* close expanded */
+    .close-polaroid {
+      position: absolute;
+      top: 8px;
+      right: 18px;
+      font-size: 2.2rem;
+      color: #6b4c8a;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      font-weight: 300;
+      z-index: 1000;
+    }
+    .close-polaroid:hover {
+      transform: scale(1.2);
+    }
+    /* ----- MESSAGES ENVELOPES (page4) ----- */
+    .envelope-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1.8rem;
+      margin: 2rem 0 2rem;
+      justify-items: center;
+    }
+    .envelope {
+      background: #dcc8f0;
+      width: 100%;
+      max-width: 150px;
+      aspect-ratio: 1/1.2;
+      border-radius: 40px 40px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 0 #b294cc, 0 12px 28px rgba(160, 120, 200, 0.2);
+      cursor: pointer;
+      transition: 0.15s;
+      padding: 0.4rem;
+      border: 1px solid #e4d5f0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #4a2d66;
+    }
+    .envelope:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #b294cc;
+    }
+    .envelope .emoji-big {
+      font-size: 3.8rem;
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .envelope .label {
+      background: rgba(255, 240, 250, 0.7);
+      padding: 0.2rem 1.2rem;
+      border-radius: 80px;
+      font-size: 0.8rem;
+      color: #4a2d66;
+    }
+    .letter-box {
+      background: #f3ecf9;
+      border-radius: 32px;
+      padding: 1.8rem 2rem;
+      margin: 1rem 0 0.5rem;
+      box-shadow: inset 0 2px 8px rgba(160, 120, 200, 0.08), 0 8px 16px rgba(160, 120, 200, 0.1);
+      border: 1px solid #dcc8f0;
+      min-height: 100px;
+      display: none;
+      animation: fadeGlow 0.3s;
+    }
+    .letter-box.show {
+      display: block;
+    }
+    .letter-box p {
+      font-size: 1.15rem;
+      color: #3a1f52;
+      font-weight: 400;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .letter-box .close-letter {
+      background: none;
+      border: none;
+      float: right;
+      font-size: 1.8rem;
+      color: #6b4c8a;
+      cursor: pointer;
+    }
+    .footer-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.2rem;
+      margin: 2.2rem 0 0.2rem;
+    }
+    .footer-nav .btn-small {
+      background: #dcc8f0;
+      border: none;
+      padding: 0.5rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 600;
+      color: #4a2d66;
+      font-size: 1rem;
+      box-shadow: 0 4px 0 #b294cc;
+      cursor: pointer;
+      transition: 0.05s linear;
+      font-family: 'Quicksand', sans-serif;
+    }
+    .footer-nav .btn-small:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #b294cc;
+    }
+    .footer-nav .btn-small.active-tab {
+      background: #d4b8e8;
+      color: #3a1f52;
+    }
+    /* responsive */
+    @media (max-width: 640px) {
+      .main-card { padding: 1.2rem; }
+      .welcome-wrap h1 { font-size: 2.8rem; }
+      .bday-pop h2 { font-size: 2.4rem; padding: 0.2rem 1.8rem; }
+      .polaroid-grid { grid-template-columns: repeat(2, 1fr); }
+      .polaroid.expanded {
+        max-width: 320px;
+        transform: translate(-50%, -50%) scale(1.1);
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="main-card" id="app">
+  <!-- pages -->
+  <!-- PAGE 1: WELCOME -->
+  <div class="page active" id="page1">
+    <div class="welcome-wrap">
+      <div class="girly-icon">🌸✨🎀</div>
+      <h1>HELLOW AYESHA KA PEHLA PYAAR </h1>
+      <div class="sub">✨SMILE KARKE DIKHA DEN AB AYESHA KO JALDI SE ✨</div>
+      <div style="font-size: 1.8rem; margin: 0.5rem 0; color:#6b4c8a;">🎂🎈</div>
+      <button class="btn" id="goToBday">touch me → 💖</button>
+      <div style="margin-top: 1.2rem; font-size: 1.1rem; color:#6b4c8a;">chal aa jaa bsdk</div>
+    </div>
+  </div>
+
+  <!-- PAGE 2: BIRTHDAY POPPERS -->
+  <div class="page" id="page2">
+    <div class="bday-pop">
+      <h2>🎉HAAAPPPPYYYY BIRTHHDAYYYY TOOOO YOUUUUU🎉</h2>
+      <div class="balloon-area" id="balloonArea">
+        <span class="balloon">🎈</span><span class="balloon">🎈</span><span class="balloon">🎈</span>
+        <span class="balloon">🎈</span><span class="balloon">🎈</span><span class="balloon">🎈</span>
+        <span class="balloon">🎈</span><span class="balloon">🎈</span>
+        <span class="confetti-emoji">✨</span><span class="confetti-emoji">🎊</span><span class="confetti-emoji">🌟</span>
+        <span class="confetti-emoji">🎉</span><span class="confetti-emoji">💖</span>
+      </div>
+      <div style="margin: 0.5rem 0 0.2rem; font-size: 1.6rem;">🥳 to you, bestie! 🥳</div>
+      <button class="btn" id="goToGallery">agey chal → 📸</button>
+    </div>
+  </div>
+
+  <!-- PAGE 3: GALLERY POLAROID -->
+  <div class="page" id="page3">
+    <h2 style="text-align:center; color:#6b4c8a; margin-bottom: 0.2rem;">📷 SARU KE PHOTOSS</h2>
+    <div class="polaroid-grid" id="polaroidGrid">
+      <!-- polaroids will be injected by js -->
+    </div>
+    <div class="footer-nav">
+      <button class="btn-small" id="backToBday">← back</button>
+      <button class="btn-small" id="goToMessages">messages ✉️</button>
+    </div>
+  </div>
+
+  <!-- PAGE 4: MESSAGES ENVELOPES -->
+  <div class="page" id="page4">
+    <h2 style="text-align:center; color:#6b4c8a; margin-bottom: 0.8rem;">💌 SARAH: WOWWW AYESHA ITNEY PYYARE MSGS MERE LIYE OMOOO MERA DILLL</h2>
+    <div class="envelope-grid" id="envelopeGrid"></div>
+    <div id="letterDisplay" class="letter-box">
+      <button class="close-letter" id="closeLetter">✕</button>
+      <p id="letterContent">bad touch an envelope 💌</p>
+    </div>
+    <div class="footer-nav">
+      <button class="btn-small" id="backToGallery">← gallery</button>
+    </div>
+  </div>
+
+  <!-- overlay for blur -->
+  <div class="blur-overlay" id="blurOverlay"></div>
+</div>
+
+<script>
+  (function() {
+    // ---------- DATA ----------
+    const galleryData = [
+      { src: '1.JPEG', caption: 'OMG J LOOK AT HER ADAAYEIN' },
+      { src: '7.JPEG', caption: 'TERA DEHAAN KIDHR HAI YE TERA HERO IDHAR HAI' },
+      { src: '3.JPEG', caption: 'Suarry me apki ass nhi laa paya' },
+      { src: '4.JPEG', caption: 'ye tou yummy si chz lag rhi hai omooo' },
+      { src: '5.JPEG', caption: 'FR SE UDHAR DEKH RHI HAI MERI HASEEN CHANGRI' },
+      { src: '6.JPEG', caption: 'MAM DOSBOSSSS' },
+      { src: '9.JPEG', caption: 'DARO NHI GUYS ISS MAHILA KO DOREY PARTE REHTE HAIN' },
+      { src: '10.JPEG', caption: 'HIS AND HERS' },
+      { src: '11.JPEG', caption: 'KAPAL GOLZ OMOOOO' },
+      { src: '12.JPEG', caption: 'KHUSHI CHECK KARO MERE SATH 5 MIN BATHROOM ME BITAANEY KI' },
+      { src: '13.JPEG', caption: 'YE EYES HYPNOTIZE KARDI AAN MENU' },
+      { src: '14.JPEG', caption: 'POUT PAGLU' },
+      { src: '15.JPEG', caption: 'Bachpan se hi lene ka shok rha hai sajan ko' },
+      { src: '16.JPEG', caption: 'Ayesha ko maangne ki dua on thursday' },
+      { src: '17.JPEG', caption: 'EEE TOU GUSSEY ME BHI PAARU LAGTI' },
+      { src: '19.JPEG', caption: 'ayesha pappi sarah' },
+      { src: '20.JPEG', caption: 'sarah pappi ayesha' },
+      { src: '21.JPEG', caption: 'AYESHA HAPPPIIIIIII' },
+      { src: '22.JPEG', caption: 'Miyaan biwi on da date' },
+      { src: '23.JPEG', caption: 'OUR MANDATORY VIDEO CALLS' },
+      { src: '24.JPEG', caption: 'I will only choose this spiderman in every universe' },
+      { src: '25.JPEG', caption: 'garma garam umm ummm ' },
+      { src: '26.JPEG', caption: 'YE KIS NIGGA KE SATH AISI HARKATEIN HO RHIIN!!!' },
+      { src: '27.JPEG', caption: 'WE ARE SOO CUTEEEE' },
+      { src: '28.JPEG', caption: 'Har jagah ghuss jaati hain ye begum jee ek tou' },
+      { src: '29.JPEG', caption: 'FOREVER FAVORITE' },
+      { src: '30.JPEG', caption: 'NOTHNG JUST LOKI FALLING IN LOVE WITH HIS VARIANT' },
+      { src: '31.JPEG', caption: 'kalluazz' },
+      { src: '32.JPEG', caption: 'gandu' },
+      { src: '33.JPEG', caption: 'ahh mere bachey ki maa' },
+      { src: '35.JPEG', caption: 'formal picture with sarah tutt' },
+      { src: '36.JPEG', caption: '2 bhai 2no bharwey' },
+      { src: '37.JPEG', caption: 'hugguuu' }
+    ];
+
+    const messages = [
+      "Happyy Birthdayyy meri jaan mere chaand ka tukra! Me still remembers the day i first tried talking to u for the first time and you didn't even listen coz you were a paidaishi gandu before you found me ok! PR FR ALL THANKS TO MEHAK AND MUQADDAS FOR FAILING ALHAMDULLILAH AUR TUM APNE PARWARDIGAAR KI KON KONSI NAIMAT KO JHUTLAOGEY..I finally found my people and I found you in them. And I genuinely can be any more grateful for having you in my life. You are the best of the bestttt.. Kabhi socha nhi tha ke class ki topper meri best farand meri biwi hogi ek din LMAOOO...CRAZYYYYY...SHUKR HAI BHAEE APKO ME MILI OMOOO YOU ARE SOOO LUCKYYY",
+
+      "Yaar hamen saath me hamari harkatein dekh ke log kya sochenge mujhe literally ghanta farq nhi parta hai. Bcz with you, I become the most stupid, crazy ass nigga version of myself and I LOVE IT. Paper se Pehle ghanta nhi parhna aur last day bhi nhi parhna.raat ko uthna mahrajon ki trha parhney bethna...hamari random calls jo ghanton bhi chal saktiin bina bore hu...hamari endless teaz subah subah wali hall me ghoomtey hue..hamara ek doosre ko samjhna. that's my favorite thing about us. Life is so heavy sometimes yk but with you, it feels light..everything seems happi happi. You make me forget all my problems even if just for a few hours. We can literally be so srs one moment and the next moment we'll be dying of hassi. Saru my love You're my escape forever and always.",
+
+      "Yk Humne saath mein bura time dekha hai, ek doosre ko toota hua dekha hai, lekin humne ek doosre ko kabhi nhi chhora. Hamesha apna Rishta bachaya hai and I'll forever be grateful that we did sort it all out and left those temporary things and ppl behind. It wasn;t easy for any of us Lekin janumanu hum dono ne ek doosre ka haath pakda aur nikal aaye uss sabse. Aur aaj bhi hum saath hain. Ion think thats luck. It's us never giving up on each other and i hope we always stay the same coz I genuinely can't afford to lose you. You are my sun in this Thor ka dark world",
+
+      "You are like my personal diary bhai. Mjhe tujhse kuch chhupana nahi parta. Aur I hope tu bhi mere se sab dil ki baatein keh sakti ho AGR NHI KEHTI TOU KEH LIYA KAR WARNA AYESHA MAD MAD. You get me like no other can. Fr se likhtey hue emotional ho rhi lmaooo...kitni achhi hai tu yaar. Yk you are a very kind hearted, dil se care karne wali, apne se Pehle doosron ka sochney wali bandi. AND SARAH YOU ARE SOOOOOO BEAUTIFUL BRO PLS TRUST ME ON THIS BUT GENUINELYYY IF I WERE A GUY I'D HAVE LOVED YOU SOOO MUCH LIKE NO OTHER. YOU ARE PERFECT AND I HOPE AND WISH AND PRAY KE TUJHY EK BOHTTT ACHHA LIFE PARTNER MILEY COZ YOU HAVE BEEN THROUGH ALOT AND I WANT YOU TO FINALLY EXPERINCE WHAT ACTUAL LOVE LOOKS LIKE..I WANT YOU TO BE LOVED FOR THE REST OF YOUR LIFE AND INSHA ALLAH AISA HI HOGAA OTHERWISE I WILL BREAK YOUR SHAUHAR KI 208TH WALI BONE HUHHHH",
+
+      "Aaj tera birthday hai and I just want you to knowke tu mere liye sirf dost nhi hai. Tu meri family hai.. You are my home. Jab main tere saath hoti hun tou duniya ki saari problems urr jaati hain.each and every moment spent with you is j the best and memorable. Tu ne mujhe sikhaya ki true friendship kya hoti hai aur ye bhi ke kisi ke liye rona bhi okay hai, hasna bhi okay hai, pagal hona bhi okay hai..bas saath hona chahiye.You understand me the way no one else can even tho i do dumbshit but you dont say that i am right..you tell me the right thing but you sit there and understand me too and thats sth very rare coz sometimes you j want someone to sit with you in your pain..dard aadha lagne lagta hai. I am glad hum saath hain. Hamesha rahenge.",
+
+      "I am reallyyyy sorry for all the things that have hurt you my love. You are really an important part of my life and you always will be. I can't promise I'll always have the right words but I can promise I'll always have your back.Pls never ever hesitate to text me. When you feel down, when you are way too happy, when you are excited, when you are sedd or crying..Ayesha will be there (late dekhun msgs tou call mwah hehe yk me). Happy Birthday meri chanda. Duniya ki sabse bari kuttiya meri kuttiya, sabse understanding, sabse gandu, sabse pyaari insaan ko. I love you more than marvel, more than sleep,more than chicken legs ofc (plslove my children even if they look malnutritioned) more than anythingggg. AYESHA LOVES YOUUUUUUUUUUUUUUUUUUUU MWAHHHHHHHHH BARAAAAAAAA SAAAAAAAAAAAAAAAA"
+    ];
+
+    // ---------- DOM refs ----------
+    const pages = {
+      page1: document.getElementById('page1'),
+      page2: document.getElementById('page2'),
+      page3: document.getElementById('page3'),
+      page4: document.getElementById('page4')
+    };
+    const goToBday = document.getElementById('goToBday');
+    const goToGallery = document.getElementById('goToGallery');
+    const backToBday = document.getElementById('backToBday');
+    const goToMessages = document.getElementById('goToMessages');
+    const backToGallery = document.getElementById('backToGallery');
+    const polaroidGrid = document.getElementById('polaroidGrid');
+    const envelopeGrid = document.getElementById('envelopeGrid');
+    const letterDisplay = document.getElementById('letterDisplay');
+    const letterContent = document.getElementById('letterContent');
+    const closeLetter = document.getElementById('closeLetter');
+    const blurOverlay = document.getElementById('blurOverlay');
+
+    // ---------- UTILITY: switch page ----------
+    function showPage(pageId) {
+      Object.keys(pages).forEach(key => {
+        pages[key].classList.toggle('active', key === pageId);
+      });
+      // close any expanded polaroid & blur
+      closeExpandedPolaroid();
+      // hide letter box
+      letterDisplay.classList.remove('show');
+    }
+
+    // ---------- POLAROID ----------
+    function renderPolaroids() {
+      polaroidGrid.innerHTML = '';
+      galleryData.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'polaroid';
+        div.dataset.index = idx;
+        div.innerHTML = `<img src="${item.src}" alt="polaroid" loading="lazy">
+                        <div class="caption">${item.caption}</div>`;
+        div.addEventListener('click', function(e) {
+          e.stopPropagation();
+          expandPolaroid(this);
+        });
+        polaroidGrid.appendChild(div);
+      });
+    }
+
+    let expandedElement = null;
+    function expandPolaroid(el) {
+      // if already expanded, close it
+      if (expandedElement) {
+        closeExpandedPolaroid();
+        if (expandedElement === el) return;
+      }
+      // blur overlay
+      blurOverlay.classList.add('show');
+      el.classList.add('expanded');
+      // create close button inside expanded
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'close-polaroid';
+      closeBtn.innerHTML = '✕';
+      closeBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeExpandedPolaroid();
+      });
+      el.appendChild(closeBtn);
+      expandedElement = el;
+
+      // click on overlay closes
+      blurOverlay.onclick = function() {
+        closeExpandedPolaroid();
+      };
+      // escape key
+      document.addEventListener('keydown', handleEsc);
+    }
+
+    function closeExpandedPolaroid() {
+      if (expandedElement) {
+        expandedElement.classList.remove('expanded');
+        const closeBtn = expandedElement.querySelector('.close-polaroid');
+        if (closeBtn) closeBtn.remove();
+        expandedElement = null;
+        blurOverlay.classList.remove('show');
+        blurOverlay.onclick = null;
+        document.removeEventListener('keydown', handleEsc);
+      }
+    }
+    function handleEsc(e) {
+      if (e.key === 'Escape') closeExpandedPolaroid();
+    }
+
+    // ---------- ENVELOPES ----------
+    function renderEnvelopes() {
+      envelopeGrid.innerHTML = '';
+      const emojis = ['💌', '🌸', '✨', '🎀', '🍬', '💖'];
+      messages.forEach((msg, i) => {
+        const env = document.createElement('div');
+        env.className = 'envelope';
+        env.dataset.index = i;
+        env.innerHTML = `<div class="emoji-big">${emojis[i % emojis.length]}</div>
+                         <span class="label">envelope ${i+1}</span>`;
+        env.addEventListener('click', function() {
+          const idx = parseInt(this.dataset.index);
+          letterContent.textContent = messages[idx] || '💕 bestie!';
+          letterDisplay.classList.add('show');
+          // auto scroll to letter
+          letterDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        envelopeGrid.appendChild(env);
+      });
+    }
+
+    // close letter
+    closeLetter.addEventListener('click', function() {
+      letterDisplay.classList.remove('show');
+    });
+
+    // ---------- NAVIGATION ----------
+    goToBday.addEventListener('click', function() {
+      showPage('page2');
+    });
+    goToGallery.addEventListener('click', function() {
+      showPage('page3');
+      renderPolaroids();
+    });
+    backToBday.addEventListener('click', function() {
+      showPage('page2');
+    });
+    goToMessages.addEventListener('click', function() {
+      showPage('page4');
+      renderEnvelopes();
+      letterDisplay.classList.remove('show');
+    });
+    backToGallery.addEventListener('click', function() {
+      showPage('page3');
+      renderPolaroids();
+    });
+
+    // close expanded if page changes (already in showPage)
+    // override showPage to close polaroid
+    const originalShow = showPage;
+    showPage = function(pageId) {
+      closeExpandedPolaroid();
+      letterDisplay.classList.remove('show');
+      originalShow(pageId);
+    };
+    // rebind navigation to new showPage
+    goToBday.onclick = function() { showPage('page2'); };
+    goToGallery.onclick = function() { showPage('page3'); renderPolaroids(); };
+    backToBday.onclick = function() { showPage('page2'); };
+    goToMessages.onclick = function() { showPage('page4'); renderEnvelopes(); letterDisplay.classList.remove('show'); };
+    backToGallery.onclick = function() { showPage('page3'); renderPolaroids(); };
+
+    // initial render for gallery & envelopes (hidden but ready)
+    renderPolaroids();
+    renderEnvelopes();
+
+    // close expanded on resize (optional)
+    window.addEventListener('resize', closeExpandedPolaroid);
+
+    console.log('🌸 happy birthday behn ki lorry 🎂');
+  })();
+</script>
+</body>
+</html>
